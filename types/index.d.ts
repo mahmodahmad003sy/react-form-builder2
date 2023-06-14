@@ -34,6 +34,7 @@ type BaseElement = {
   canHaveOptionCorrect: boolean;
   canHaveOptionValue: boolean;
   canHavePageBreakBefore: boolean;
+  canHaveSendEmailTo: boolean;
   canPopulateFromApi: boolean;
   text: string;
 };

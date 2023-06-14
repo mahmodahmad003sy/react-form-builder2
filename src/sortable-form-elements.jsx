@@ -1,13 +1,33 @@
-import SortableElement from './sortable-element';
-import PlaceHolder from './form-place-holder';
-import BaseFormElements from './form-elements';
-import { TwoColumnRow, ThreeColumnRow, MultiColumnRow } from './multi-column';
-import { FieldSet } from './fieldset';
-import CustomElement from './form-elements/custom-element';
+import SortableElement from "./sortable-element";
+import PlaceHolder from "./form-place-holder";
+import BaseFormElements from "./form-elements";
+import { TwoColumnRow, ThreeColumnRow, MultiColumnRow } from "./multi-column";
+import { FieldSet } from "./fieldset";
+import CustomElement from "./form-elements/custom-element";
 
 const {
-  Header, Paragraph, Label, LineBreak, TextInput, EmailInput, PhoneNumber, NumberInput, TextArea, Dropdown, Checkboxes,
-  DatePicker, RadioButtons, Image, Rating, Tags, Signature, HyperLink, Download, Camera, Range, FileUpload,
+  Header,
+  Paragraph,
+  Label,
+  LineBreak,
+  TextInput,
+  EmailInput,
+  PhoneNumber,
+  NumberInput,
+  TextArea,
+  Dropdown,
+  Checkboxes,
+  DatePicker,
+  RadioButtons,
+  Image,
+  Rating,
+  Tags,
+  Signature,
+  HyperLink,
+  Download,
+  Camera,
+  Range,
+  FileUpload,
 } = BaseFormElements;
 
 const FormElements = {};
@@ -18,6 +38,7 @@ FormElements.Label = SortableElement(Label);
 FormElements.LineBreak = SortableElement(LineBreak);
 FormElements.TextInput = SortableElement(TextInput);
 FormElements.EmailInput = SortableElement(EmailInput);
+FormElements.Second_EmailInput = SortableElement(EmailInput);
 FormElements.PhoneNumber = SortableElement(PhoneNumber);
 FormElements.NumberInput = SortableElement(NumberInput);
 FormElements.TextArea = SortableElement(TextArea);
