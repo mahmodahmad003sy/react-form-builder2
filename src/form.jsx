@@ -28,6 +28,8 @@ class ReactForm extends React.Component {
     this.answerData = this._convert(props.answer_data);
     this.emitter = new EventEmitter();
     this.getDataById = this.getDataById.bind(this);
+
+    console.log({ FormProps: this.props });
   }
 
   _convert(answers) {
@@ -65,6 +67,12 @@ class ReactForm extends React.Component {
   }
 
   _getItemValue(item, ref) {
+    console.log({
+      item_getItemValue: item,
+      ref,
+      item_getItemValueCheck:
+        item.element === "CustomElement" && item?.key == "MyDropZone",
+    });
     let $item = {
       element: item.element,
       value: "",
@@ -79,6 +87,8 @@ class ReactForm extends React.Component {
       $item.value = ref.state.img;
     } else if (item.element === "FileUpload") {
       $item.value = ref.state.fileUpload;
+    } else if (item.element === "CustomElement" && item.key == "MyDropZone") {
+      $item.value = ref.inputField.current.files[0];
     } else if (ref && ref.inputField && ref.inputField.current) {
       $item = ReactDOM.findDOMNode(ref.inputField.current);
       if ($item && typeof $item.value === "string") {
@@ -158,7 +168,9 @@ class ReactForm extends React.Component {
       custom_name: item.custom_name || item.field_name,
     };
     if (!itemData.name) return null;
+    console.log({ inputs: this.inputs, item_collect: item, ref });
     const ref = this.inputs[item.field_name];
+    console.log({ inputs: 2 });
     if (item.element === "Checkboxes" || item.element === "RadioButtons") {
       const checked_options = [];
       item.options.forEach((option) => {
@@ -172,6 +184,7 @@ class ReactForm extends React.Component {
       itemData.value = checked_options;
     } else {
       if (!ref) return null;
+
       itemData.value = this._getItemValue(item, ref).value;
     }
     return itemData;
@@ -179,6 +192,7 @@ class ReactForm extends React.Component {
 
   _collectFormData(data) {
     const formData = [];
+    console.log({ item_collect: data });
     data.forEach((item) => {
       const item_data = this._collect(item);
       if (item_data) {
@@ -214,12 +228,16 @@ class ReactForm extends React.Component {
       // Publish errors, if any.
       this.emitter.emit("formValidation", errors);
     }
-
+    console.log({ eeee: errors });
     // Only submit if there are no errors.
     if (errors.length < 1) {
       const { onSubmit } = this.props;
+      console.log({ onSubmit: onSubmit });
+      console.log("dataaa", ...this.props.data);
       if (onSubmit) {
+        console.log({ onSubmit0: 0 });
         const data = this._collectFormData(this.props.data);
+        console.log({ onSubmit1: data });
         onSubmit(data);
       } else {
         const $form = ReactDOM.findDOMNode(this.form);
@@ -363,7 +381,6 @@ class ReactForm extends React.Component {
 
   getCustomElement(item) {
     const { intl } = this.props;
-
     if (!item.component || typeof item.component !== "function") {
       item.component = Registry.get(item.key);
       if (!item.component) {
@@ -380,6 +397,12 @@ class ReactForm extends React.Component {
       defaultValue: this._getDefaultValue(item),
       ref: (c) => (this.inputs[item.field_name] = c),
     };
+    console.log({
+      read_only: this.props.read_only,
+      key: `form_${item.id}`,
+      item,
+      inputProps,
+    });
     return (
       <CustomElement
         mutable={true}

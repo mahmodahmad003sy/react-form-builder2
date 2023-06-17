@@ -56,6 +56,7 @@ class Toolbar extends React.Component {
     const { intl } = this.props;
     console.log({ intl });
     const items = buildItems(props.items, this._defaultItems(intl));
+    console.log({ ToolbarItems: items });
     this.state = {
       items,
     };
@@ -183,6 +184,7 @@ class Toolbar extends React.Component {
         field_name: "dropdown_",
         options: [],
       },
+
       {
         key: "Tags",
         canHaveAnswer: true,
@@ -464,7 +466,7 @@ class Toolbar extends React.Component {
     elementOptions.canHavePageBreakBefore =
       item.canHavePageBreakBefore !== false;
 
-    elementOptions.canHaveSendEmailTo = item.canHaveAlternateForm === true;
+    elementOptions.canHaveSendEmailTo = item.canHaveSendEmailTo === true;
     elementOptions.canHaveAlternateForm = item.canHaveAlternateForm !== false;
     elementOptions.canHaveDisplayHorizontal =
       item.canHaveDisplayHorizontal !== false;

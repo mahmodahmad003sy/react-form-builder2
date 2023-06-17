@@ -104,6 +104,7 @@ class ReactFormBuilder extends React.Component {
 function ReactFormGenerator(props) {
   const language = props.locale ? props.locale : "en";
   const currentAppLocale = AppLocale[language];
+
   return (
     <IntlProvider
       locale={currentAppLocale.locale}

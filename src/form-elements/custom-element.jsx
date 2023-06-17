@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import ComponentHeader from './component-header';
-import ComponentLabel from './component-label';
+import React, { Component } from "react";
+import ComponentHeader from "./component-header";
+import ComponentLabel from "./component-label";
 
 class CustomElement extends Component {
   constructor(props) {
+    console.log("custummmmmmmm");
     super(props);
     this.inputField = React.createRef();
   }
@@ -11,6 +12,7 @@ class CustomElement extends Component {
   render() {
     const { bare } = this.props.data;
     const props = {};
+    console.log({ asdasdasdas: this.props.data.field_name });
     props.name = this.props.data.field_name;
     props.defaultValue = this.props.defaultValue;
 
@@ -19,26 +21,37 @@ class CustomElement extends Component {
     }
 
     if (this.props.read_only) {
-      props.disabled = 'disabled';
+      props.disabled = "disabled";
     }
 
     // Return if component is invalid.
     if (!this.props.data.component) return null;
     const Element = this.props.data.component;
 
-    let baseClasses = 'SortableItem rfb-item';
-    if (this.props.data.pageBreakBefore) { baseClasses += ' alwaysbreak'; }
+    let baseClasses = "SortableItem rfb-item";
+    if (this.props.data.pageBreakBefore) {
+      baseClasses += " alwaysbreak";
+    }
 
     return (
       <div className={baseClasses} style={{ ...this.props.style }}>
         <ComponentHeader {...this.props} />
-        { bare ?
-          <Element data={this.props.data} {...this.props.data.props} {...props} /> :
+        {bare ? (
+          <Element
+            data={this.props.data}
+            {...this.props.data.props}
+            {...props}
+          />
+        ) : (
           <div className="form-group">
             <ComponentLabel className="form-label" {...this.props} />
-            <Element data={this.props.data} {...this.props.data.props} {...props} />
+            <Element
+              data={this.props.data}
+              {...this.props.data.props}
+              {...props}
+            />
           </div>
-        }
+        )}
       </div>
     );
   }
